@@ -35,3 +35,8 @@ task runBuild(type: JavaExec, dependsOn: 'compile') {
 }
 //use this if you want to run everything at once
 task buildAndRun(dependsOn: ['cleanBuild', 'compile', 'testBuild', 'runBuild'])
+
+dependencies {
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.14.1'
+}
