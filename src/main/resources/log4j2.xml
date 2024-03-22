@@ -27,11 +27,5 @@
             <AppenderRef ref="warn" level="warn"/>
             <!-- this writes timing information, see logging to "timer" -->
         </Root>
-        <!-- This is an example of how we can up the logging for a specific class -->
-        <!-- In this case, we may be actively developing SavingsAccount so we want
-             to see debug on the console for this class -->
-        <Logger name="RunEdgeConvert" level="debug" additivity="true">
-            <!-- <AppenderRef ref="Console"/> -->
-        </Logger>
     </Loggers>
 </Configuration>

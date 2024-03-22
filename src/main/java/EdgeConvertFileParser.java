@@ -2,6 +2,9 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class EdgeConvertFileParser {
    //private String filename = "test.edg";
    private File parseFile;
@@ -25,6 +28,7 @@ public class EdgeConvertFileParser {
    public static final String EDGE_ID = "EDGE Diagram File"; //first line of .edg files should be this
    public static final String SAVE_ID = "EdgeConvert Save File"; //first line of save files should be this
    public static final String DELIM = "|";
+   public static Logger logger = LogManager.getLogger(EdgeConvertFileParser.class);
    
    public EdgeConvertFileParser(File constructorFile) {
       numFigure = 0;
