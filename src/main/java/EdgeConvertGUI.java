@@ -362,7 +362,9 @@ public class EdgeConvertGUI {
                         if (result.length() <= Integer.parseInt(jtfDTVarchar.getText())) {
                            jtfDTDefaultValue.setText(result);
                            goodData = true;
+                           logger.debug("Set default value of field " + currentDTField.getName() + " to " + result);
                         } else {
+                           logger.debug("Value " + result + " too long for given varchar length, unable to set default");
                            JOptionPane.showMessageDialog(null, "The length of this value must be less than or equal to the Varchar length specified.");
                         }
                         break;
@@ -371,7 +373,9 @@ public class EdgeConvertGUI {
                         if (newResult.equals("true") || newResult.equals("false")) {
                            jtfDTDefaultValue.setText(newResult);
                            goodData = true;
+                           logger.debug("Set default value of field " + currentDTField.getName() + " to " + result);
                         } else {
+                           logger.debug("Value " + result + " not a boolean, unable to set default");
                            JOptionPane.showMessageDialog(null, "You must input a valid boolean value (\"true\" or \"false\").");
                         }
                         break;
@@ -380,8 +384,9 @@ public class EdgeConvertGUI {
                            int intResult = Integer.parseInt(result);
                            jtfDTDefaultValue.setText(result);
                            goodData = true;
+                           logger.debug("Set default value of field " + currentDTField.getName() + " to " + result);
                         } catch (NumberFormatException nfe) {
-                           logger.warn("Result " + result + " is not an integer or is out of bounds");
+                           logger.debug("Value " + result + " is not an integer or is out of bounds, unable to set default");
                            JOptionPane.showMessageDialog(null, "\"" + result + "\" is not an integer or is outside the bounds of valid integer values.");
                         }
                         break;
@@ -390,8 +395,9 @@ public class EdgeConvertGUI {
                            double doubleResult = Double.parseDouble(result);
                            jtfDTDefaultValue.setText(result);
                            goodData = true;
+                           logger.debug("Set default value of field " + currentDTField.getName() + " to " + result);
                         } catch (NumberFormatException nfe) {
-                           logger.warn("Result " + result + " is not an double or is out of bounds");
+                           logger.debug("Value " + result + " is not an double or is out of bounds, unable to set default");
                            JOptionPane.showMessageDialog(null, "\"" + result + "\" is not a double or is outside the bounds of valid double values.");
                         }
                         break;
@@ -399,9 +405,10 @@ public class EdgeConvertGUI {
                         try {
                            jtfDTDefaultValue.setText(result);
                            goodData = true;
+                           logger.debug("Set default value of field " + currentDTField.getName() + " to " + result);
                         }
                         catch (Exception e) {
-                           logger.error("Result " + result + " is not an timestamp or is out of bounds");
+                           logger.error("Value " + result + " is not a timestamp or is out of bounds, unable to set default");
                         }
                         break;
                   }
@@ -441,6 +448,7 @@ public class EdgeConvertGUI {
                int varchar;
                try {
                   if (result.length() > 5) {
+                     logger.debug("Value out of bounds, unable to set varchar length");
                      JOptionPane.showMessageDialog(null, "Varchar length must be greater than 0 and less than or equal to 65535.");
                      jtfDTVarchar.setText(Integer.toString(EdgeField.VARCHAR_DEFAULT_LENGTH));
                      return;
@@ -449,13 +457,15 @@ public class EdgeConvertGUI {
                   if (varchar > 0 && varchar <= 65535) { // max length of varchar is 255 before v5.0.3
                      jtfDTVarchar.setText(Integer.toString(varchar));
                      currentDTField.setVarcharValue(varchar);
+                     logger.debug("Set varchar length to " + result);
                   } else {
+                     logger.debug("Value out of bounds, unable to set varchar length");
                      JOptionPane.showMessageDialog(null, "Varchar length must be greater than 0 and less than or equal to 65535.");
                      jtfDTVarchar.setText(Integer.toString(EdgeField.VARCHAR_DEFAULT_LENGTH));
                      return;
                   }
                } catch (NumberFormatException nfe) {
-                  logger.warn("Result " + result + " is not a number");
+                  logger.debug("Value " + result + " is not a number, unable to set varchar length");
                   JOptionPane.showMessageDialog(null, "\"" + result + "\" is not a number");
                   jtfDTVarchar.setText(Integer.toString(EdgeField.VARCHAR_DEFAULT_LENGTH));
                   return;
@@ -685,6 +695,7 @@ public class EdgeConvertGUI {
                      currentDRField1.setTableBound(0); //clear the bound table
                      currentDRField1.setFieldBound(0); //clear the bound field
                      jlDRFieldsTablesRelatedTo.clearSelection(); //clear the listbox selection
+                     logger.debug("Unbound relation on field " + currentDRField1);
                   }
                   return;
                }
@@ -718,6 +729,9 @@ public class EdgeConvertGUI {
                JOptionPane.showMessageDialog(null, "Table " + currentDRTable1.getName() + ": native field " +
                                              currentDRField1.getName() + " bound to table " + currentDRTable2.getName() +
                                              " on field " + currentDRField2.getName());
+               logger.debug("Bound table " + currentDRTable1.getName() + " field " +
+               currentDRField1.getName() + " to table " + currentDRTable2.getName() +
+               " on field " + currentDRField2.getName() + ", overwriting any previous relations");
                dataSaved = false;
             }
          }
@@ -887,6 +901,7 @@ public class EdgeConvertGUI {
              if (response == JOptionPane.CANCEL_OPTION) {
                 return;
              }
+             logger.info("Overwriting previous file");
          }
          if (!saveFile.getName().endsWith("sav")) {
             String temp = saveFile.getAbsolutePath() + ".sav";
@@ -899,6 +914,7 @@ public class EdgeConvertGUI {
       } else {
          return;
       }
+      logger.info("Saving data as " + saveFile);
       writeSave();
    }
    
@@ -923,11 +939,13 @@ public class EdgeConvertGUI {
          } catch (IOException ioe) {
             logger.error(ioe);
          }
+         logger.info("Data saved!");
          dataSaved = true;
       }
    }
 
    private void setOutputDir() {
+      logger.debug("Setting new output directory " + outputDir.getAbsolutePath());
       int returnVal;
       outputDirOld = outputDir;
       alSubclasses = new ArrayList();
@@ -948,6 +966,7 @@ public class EdgeConvertGUI {
       if (alProductNames.size() == 0) {
          JOptionPane.showMessageDialog(null, "The path:\n" + outputDir + "\ncontains no valid output definition files.");
          outputDir = outputDirOld;
+         logger.debug("Path contained no valid output definition file. Setting directory cancelled");
          return;
       }
       
@@ -959,6 +978,7 @@ public class EdgeConvertGUI {
       JOptionPane.showMessageDialog(null, "The available products to create DDL statements are:\n" + displayProductNames());
       jmiDTOptionsShowProducts.setEnabled(true);
       jmiDROptionsShowProducts.setEnabled(true);
+      logger.debug("Output directory set.");
    }
    
    private String displayProductNames() {
@@ -1104,13 +1124,16 @@ public class EdgeConvertGUI {
              if (response == JOptionPane.CANCEL_OPTION) {
                 return;
              }
+             logger.info("Overwriting existing file");
          }
          try {
+            logger.info("Saving SQL statements");
             pw = new PrintWriter(new BufferedWriter(new FileWriter(outputFile, false)));
             //write the SQL statements
             pw.println(output);
             //close the file
             pw.close();
+            logger.info("File saved");
          } catch (IOException ioe) {
             logger.error(ioe);
          }
@@ -1169,6 +1192,12 @@ public class EdgeConvertGUI {
                }
                return;
             }
+         }
+         if (!dataSaved) {
+            logger.info("Exiting without save.");
+         }
+         else {
+            logger.info("Exiting app.");
          }
          System.exit(0); //No was selected
       }
@@ -1292,6 +1321,12 @@ public class EdgeConvertGUI {
                if ((answer == JOptionPane.CANCEL_OPTION) || (answer == JOptionPane.CLOSED_OPTION)) {
                   return;
                }
+            }
+            if (!dataSaved) {
+               logger.info("Exiting without save.");
+            }
+            else {
+               logger.info("Exiting app.");
             }
             System.exit(0); //No was selected
          }
