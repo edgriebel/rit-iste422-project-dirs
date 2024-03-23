@@ -49,7 +49,7 @@ public class EdgeConvertFileParser {
    }
 
    public void parseEdgeFile() throws IOException {
-      logger.debug("Initializing parseEdgeFile()");
+      logger.info("Parsing edge file.");
       while ((currentLine = br.readLine()) != null) {
          currentLine = currentLine.trim();
          if (currentLine.startsWith("Figure ")) { //this is the start of a Figure entry
@@ -139,7 +139,7 @@ public class EdgeConvertFileParser {
             alConnectors.add(new EdgeConnector(numConnector + DELIM + endPoint1 + DELIM + endPoint2 + DELIM + endStyle1 + DELIM + endStyle2));
          } // if("Connector")
       } // while()
-      logger.debug("Completed parseEdgeFile()");
+      logger.info("Completed edge file parsing.");
    } // parseEdgeFile()
    
    private void resolveConnectors() { //Identify nature of Connector endpoints
