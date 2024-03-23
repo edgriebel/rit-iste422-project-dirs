@@ -945,7 +945,7 @@ public class EdgeConvertGUI {
    }
 
    private void setOutputDir() {
-      logger.debug("Setting new output directory " + outputDir.getAbsolutePath());
+      logger.debug("Setting new output directory");
       int returnVal;
       outputDirOld = outputDir;
       alSubclasses = new ArrayList();
