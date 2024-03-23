@@ -22,6 +22,7 @@ public abstract class EdgeConvertCreateDDL {
    public EdgeConvertCreateDDL(EdgeTable[] tables, EdgeField[] fields) {
       this.tables = tables;
       this.fields = fields;
+      logger.debug("Initializing DDL");
       initialize();
    } //EdgeConvertCreateDDL(EdgeTable[], EdgeField[])
    
@@ -47,6 +48,7 @@ public abstract class EdgeConvertCreateDDL {
             maxBound = numBound;
          }
       }
+      logger.debug("DDL table initialization complete");
    }
    
    protected EdgeTable getTable(int numFigure) {

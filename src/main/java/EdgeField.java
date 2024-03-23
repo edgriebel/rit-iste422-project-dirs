@@ -11,6 +11,7 @@ public class EdgeField {
    public static Logger logger = LogManager.getLogger(EdgeField.class);
    
    public EdgeField(String inputString) {
+      try {
       StringTokenizer st = new StringTokenizer(inputString, EdgeConvertFileParser.DELIM);
       numFigure = Integer.parseInt(st.nextToken());
       name = st.nextToken();
@@ -22,6 +23,10 @@ public class EdgeField {
       defaultValue = "";
       varcharValue = VARCHAR_DEFAULT_LENGTH;
       dataType = 0;
+      logger.debug("EdgeField initialized, with inputString: " + inputString);
+      } catch (Exception exc) {
+         logger.error("EdgeField constructor failed: " + exc);
+      }
    }
    
    public int getNumFigure() {
@@ -37,6 +42,7 @@ public class EdgeField {
    }
    
    public void setTableID(int value) {
+      logger.debug("tableID set from " + tableID + " to " + value);
       tableID = value;
    }
    
@@ -45,6 +51,7 @@ public class EdgeField {
    }
    
    public void setTableBound(int value) {
+      logger.debug("tableBound set from " + tableBound + " to " + value);
       tableBound = value;
    }
 
@@ -53,6 +60,7 @@ public class EdgeField {
    }
    
    public void setFieldBound(int value) {
+      logger.debug("fieldBound set from " + fieldBound + " to " + value);
       fieldBound = value;
    }
 
@@ -61,6 +69,7 @@ public class EdgeField {
    }
    
    public void setDisallowNull(boolean value) {
+      logger.debug("disallowNull set from " + disallowNull + " to " + value);
       disallowNull = value;
    }
    
@@ -69,6 +78,7 @@ public class EdgeField {
    }
    
    public void setIsPrimaryKey(boolean value) {
+      logger.debug("isPrimaryKey set from " + isPrimaryKey + " to " + value);
       isPrimaryKey = value;
    }
    
@@ -77,6 +87,7 @@ public class EdgeField {
    }
    
    public void setDefaultValue(String value) {
+      logger.debug("defaultValue set from " + defaultValue + " to " + value);
       defaultValue = value;
    }
    
@@ -86,6 +97,7 @@ public class EdgeField {
    
    public void setVarcharValue(int value) {
       if (value > 0) {
+         logger.debug("varcharValue set from " + varcharValue + " to " + value);
          varcharValue = value;
       }
    }
@@ -95,6 +107,7 @@ public class EdgeField {
    
    public void setDataType(int value) {
       if (value >= 0 && value < strDataType.length) {
+         logger.debug("dataType set from " + dataType + " to " + value);
          dataType = value;
       }
    }

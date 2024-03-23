@@ -10,11 +10,16 @@ public class EdgeTable {
    public static Logger logger = LogManager.getLogger(EdgeTable.class);
    
    public EdgeTable(String inputString) {
+      try {
       StringTokenizer st = new StringTokenizer(inputString, EdgeConvertFileParser.DELIM);
       numFigure = Integer.parseInt(st.nextToken());
       name = st.nextToken();
       alRelatedTables = new ArrayList();
       alNativeFields = new ArrayList();
+      logger.debug("EdgeTable initialized, with inputString: " + inputString);
+      } catch (Exception exc) {
+         logger.error("EdgeTable constructor failed: " + exc);
+      }
    }
    
    public int getNumFigure() {
@@ -26,6 +31,7 @@ public class EdgeTable {
    }
    
    public void addRelatedTable(int relatedTable) {
+      logger.debug("Adding related table " + relatedTable);
       alRelatedTables.add(new Integer(relatedTable));
    }
    
@@ -38,6 +44,7 @@ public class EdgeTable {
    }
    
    public void setRelatedField(int index, int relatedValue) {
+      logger.debug("Adding related field " + relatedValue + " at " + index);
       relatedFields[index] = relatedValue;
    }
    
@@ -46,6 +53,7 @@ public class EdgeTable {
    }
 
    public void addNativeField(int value) {
+      logger.debug("Adding native field " + value);
       alNativeFields.add(new Integer(value));
    }
 
@@ -59,6 +67,7 @@ public class EdgeTable {
       int tempRelated = relatedFields[index - 1]; //save element at destination index
       relatedFields[index - 1] = relatedFields[index]; //copy target element to destination
       relatedFields[index] = tempRelated; //copy saved element to target's original location
+      logger.debug("EdgeTable Field moved up by " + index);
    }
    
    public void moveFieldDown(int index) { //move the field closer to the end of the list
@@ -71,6 +80,7 @@ public class EdgeTable {
       int tempRelated = relatedFields[index + 1]; //save element at destination index
       relatedFields[index + 1] = relatedFields[index]; //copy target element to destination
       relatedFields[index] = tempRelated; //copy saved element to target's original location
+      logger.debug("EdgeTable Field moved down by " + index);
    }
 
    public void makeArrays() { //convert the ArrayLists into int[]
@@ -91,6 +101,7 @@ public class EdgeTable {
       for (int i = 0; i < relatedFields.length; i++) {
          relatedFields[i] = 0;
       }
+      logger.debug("Converted ArrayList into int[]");
    }
 
    public String toString() {

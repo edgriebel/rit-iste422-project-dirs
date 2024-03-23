@@ -10,6 +10,7 @@ public class EdgeConnector {
       
    public EdgeConnector(String inputString) {
       StringTokenizer st = new StringTokenizer(inputString, EdgeConvertFileParser.DELIM);
+      try {
       numConnector = Integer.parseInt(st.nextToken());
       endPoint1 = Integer.parseInt(st.nextToken());
       endPoint2 = Integer.parseInt(st.nextToken());
@@ -19,6 +20,10 @@ public class EdgeConnector {
       isEP2Field = false;
       isEP1Table = false;
       isEP2Table = false;
+      logger.debug("EdgeConnector initialized, with inputString: " + inputString);
+      } catch (Exception exc) {
+         logger.error("EdgeConnector constructor failed: " + exc);
+      }
    }
    
    public int getNumConnector() {
@@ -57,18 +62,22 @@ public class EdgeConnector {
    }
 
    public void setIsEP1Field(boolean value) {
+      logger.debug("EP1Field set from " + isEP1Field + " to " + value);
       isEP1Field = value;
    }
    
    public void setIsEP2Field(boolean value) {
+      logger.debug("EP2Field set from " + isEP2Field + " to " + value);
       isEP2Field = value;
    }
 
    public void setIsEP1Table(boolean value) {
+      logger.debug("EP1Table set from " + isEP1Table + " to " + value);
       isEP1Table = value;
    }
 
    public void setIsEP2Table(boolean value) {
+      logger.debug("EP2Table set from " + isEP2Table + " to " + value);
       isEP2Table = value;
    }
 }
