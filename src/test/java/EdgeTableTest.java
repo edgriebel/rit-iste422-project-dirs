@@ -29,7 +29,7 @@ public class EdgeTableTest {
         testObj2.makeArrays();
         // add zero fields and zero tables to the testObj3 EdgeTable
         testObj3.makeArrays();
-        // add four fields and 2 tables to the testObj4 EdgeTable
+        // add four fields and two tables to the testObj4 EdgeTable
         testObj4.addNativeField(1);
         testObj4.addNativeField(2);
         testObj4.addNativeField(3);
@@ -48,19 +48,19 @@ public class EdgeTableTest {
                 testObj1.getRelatedTablesArray().length);
         assertEquals("Length of native fields array in testObj1 should be equal to 2", 2,
                 testObj1.getNativeFieldsArray().length);
-        // testObj2 is steup with 1 field and 3 tables
+        // testObj2 is steup with one field and three tables
         assertEquals("NumFigure of testObj2 should be initialized to 2", 2, testObj2.getNumFigure());
         assertEquals("Name of testObj2 should be initialized to 'TestTable'", "TestTable", testObj2.getName());
         assertEquals("Length of related tables array in testObj2 should be equal to 3", 3,
                 testObj2.getRelatedTablesArray().length);
         assertEquals("Length of native fields array in testObj2 should be equal to 1", 1,
                 testObj2.getNativeFieldsArray().length);
-        // testObj3 is setup with 0 fields and 0 tables
+        // testObj3 is setup with zero fields and zero tables
         assertEquals("NumFigure of testObj should be initialized to 3", 3, testObj3.getNumFigure());
         assertEquals("Name of testObj3 should be initialized to 'ThirdTable'", "ThirdTable", testObj3.getName());
         assertEquals("Length of related tables array in testObj3 should be initialized to 0", 0,
                 testObj3.getRelatedTablesArray().length);
-        // testObj4 is setup with 0 fields and 0 tables
+        // testObj4 is setup with four fields and two tables
         assertEquals("NumFigure of testObj4 should be initialized to 4", 4, testObj4.getNumFigure());
         assertEquals("Name of testObj4 should be initialized to 'TestTable'", "TestTable", testObj4.getName());
         assertEquals("Length of related tables array in testObj4 should be equal to 2", 2,
@@ -181,12 +181,12 @@ public class EdgeTableTest {
     public void testMakeArraysEmpty() {
         // these tests are only for testObj3, as it's the only EdgeTable object created
         // without fields & tables
-        assertEquals("Native fields array length of testObj3 should be 0 after makeArrays()", 0,
-                testObj3.getNativeFieldsArray().length);
-        assertEquals("Related tables array length of testObj3 should be 0 after makeArrays()", 0,
+        assertEquals("Related tables array length of testObj3 should be zero after makeArrays()", 0,
                 testObj3.getRelatedTablesArray().length);
-        assertEquals("Related fields array length of testObj3 should be 0 after makeArrays()", 0,
+        assertEquals("Related fields array length of testObj3 should be zero after makeArrays()", 0,
                 testObj3.getRelatedFieldsArray().length);
+        assertEquals("Native fields array length of testObj3 should be zero after makeArrays()", 0,
+                testObj3.getNativeFieldsArray().length);
     }
 
     @Test
@@ -216,12 +216,12 @@ public class EdgeTableTest {
     @Test
     public void testSetRelatedField() {
         testObj1.setRelatedField(1, 100);
-        testObj2.setRelatedField(0, 100);
-        testObj4.setRelatedField(2, 100);
+        testObj2.setRelatedField(0, 105);
+        testObj4.setRelatedField(2, 110);
 
         assertEquals("Related field at index 0 should be 100", 100, testObj1.getRelatedFieldsArray()[1]);
-        assertEquals("Related field at index 0 should be 100", 100, testObj2.getRelatedFieldsArray()[0]);
-        assertEquals("Related field at index 0 should be 100", 100, testObj4.getRelatedFieldsArray()[2]);
+        assertEquals("Related field at index 0 should be 105", 105, testObj2.getRelatedFieldsArray()[0]);
+        assertEquals("Related field at index 0 should be 110", 110, testObj4.getRelatedFieldsArray()[2]);
     }
 
     @Test
