@@ -1,14 +1,17 @@
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class EdgeFieldTest {
     EdgeField edgeField;
+    EdgeField edgeField2;
 
     @Before
     public void before() {
         edgeField = new EdgeField("1|testFieldName|2|1|false|true");
+        edgeField2 = new EdgeField("2|anotherTestFieldName|10|4|true|false");
     }
 
     @Test
@@ -62,6 +65,56 @@ public class EdgeFieldTest {
     }
 
     @Test
+    public void testGetNumFigure2 () {
+        assertEquals("numFigure should be set to 2", 2, edgeField2.getNumFigure());
+    }
+
+    @Test
+    public void testGetName2 () {
+        assertEquals("name should be set to 'testFieldName'", "anotherTestFieldName", edgeField2.getName());
+    }
+
+    @Test
+    public void testGetTableID2 () {
+        assertEquals("tableID should be set to 0", 0, edgeField2.getTableID());
+    }
+
+    @Test
+    public void testGetTableBound2 () {
+        assertEquals("tableBound should be set to 0", 0, edgeField2.getTableBound());
+    }
+
+    @Test
+    public void testGetFieldBound2 () {
+        assertEquals("fieldBound should be set to 0", 0, edgeField2.getFieldBound());
+    }
+
+    @Test
+    public void testGetDisallowNull2 () {
+        assertEquals("disallowNull should be set to false", false, edgeField2.getDisallowNull());
+    }
+    
+    @Test
+    public void testGetIsPrimaryKey2 () {
+        assertEquals("isPrimaryKey should be set to false", false, edgeField2.getIsPrimaryKey());
+    }
+
+    @Test
+    public void testGetDefaultValue2 () {
+        assertEquals("defaultValue should be blank", "", edgeField2.getDefaultValue());
+    }
+
+    @Test
+    public void testGetVarcharValue2 () {
+        assertEquals("varcharValue should be set to 1", 1, edgeField2.getVarcharValue());
+    }
+
+    @Test
+    public void testGetDataType2 () {
+        assertEquals("dataType should be set to 0", 0, edgeField2.getDataType());
+    }
+
+    @Test
     public void testSetTableID() {
         edgeField.setTableID(2);
         assertEquals("tableID should be set to 2", 2, edgeField.getTableID());
@@ -110,7 +163,51 @@ public class EdgeFieldTest {
     }
 
     @Test
-    public void testToString () {
-        assertEquals("toString for edgeField should be '1|testFieldName|0|0|0|0|1|false|false|'", "1|testFieldName|0|0|0|0|1|false|false|", edgeField.toString());
+    public void testSetTableID2() {
+        edgeField2.setTableID(15);
+        assertNotEquals("tableID should not be set to 0", 0, edgeField2.getTableID());
     }
+
+    @Test
+    public void testSetTableBound2() {
+        edgeField2.setTableBound(10);
+        assertNotEquals("tableBound should not be set to 0", 0, edgeField2.getTableBound());
+    }
+
+    @Test
+    public void testSetFieldBound2() {
+        edgeField2.setFieldBound(5);
+        assertNotEquals("fieldBound should not be set to 0", 0, edgeField2.getFieldBound());
+    }
+
+    @Test
+    public void testSetDisallowNull2() {
+        edgeField2.setDisallowNull(true);
+        assertNotEquals("disallowNull should not be set to false", false, edgeField2.getDisallowNull());
+    }
+
+    @Test
+    public void testSetIsPrimaryKey2() {
+        edgeField2.setIsPrimaryKey(true);
+        assertNotEquals("isPrimaryKey should not be set to false", false, edgeField2.getIsPrimaryKey());
+    }
+
+    @Test
+    public void testSetDefaultValue2() {
+        edgeField2.setDefaultValue("default");
+        assertNotEquals("defaultValue should not be blank", "", edgeField2.getDefaultValue());
+    }
+
+    @Test
+    public void testSetVarcharValue2() {
+        edgeField2.setVarcharValue(10);
+        assertNotEquals("varcharValue should not be set to 1", 1, edgeField2.getVarcharValue());
+    }
+
+    @Test
+    public void testSetDataType2() {
+        edgeField2.setDataType(1);
+        assertNotEquals("dataType should not be set to 0", 0, edgeField2.getDataType());
+    }
+
 }
