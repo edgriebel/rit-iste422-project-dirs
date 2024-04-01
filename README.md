@@ -1,8 +1,8 @@
 ## Testing Responsibilities
-Clyde Geyer - EdgeFieldTest.java
-Austin Clifton - EdgeTableTest.java
-Daniel Kaszuba - EdgeConvertCreateDDLTest.java
-Callum Smathers - EdgeConvertFileParserTest.java
+- EdgeFieldTest.java was done by Clyde Geyer
+- EdgeTableTest.java was done by Austin Clifton
+- EdgeConvertCreateDDLTest.java was done by Daniel Kaszuba
+- EdgeConvertFileParserTest.java was done by Callum Smathers
 
 ## Testing Details
 - We've used Gradle 8.7 and JDK version 20.
